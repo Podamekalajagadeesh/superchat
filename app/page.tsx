@@ -2,6 +2,9 @@
 
 import { useState } from 'react'
 import { motion } from 'framer-motion'
+import { useAuth } from './components/auth/AuthProvider'
+import LoginForm from './components/auth/LoginForm'
+import ChatLayout from './components/chat/ChatLayout'
 import { 
   MessageCircle, 
   Shield, 
@@ -23,6 +26,7 @@ import {
 } from 'lucide-react'
 
 export default function Home() {
+  const { user, isLoading } = useAuth()
   const [activeTab, setActiveTab] = useState('messaging')
 
   const features = {
@@ -75,6 +79,24 @@ export default function Home() {
     }
   ]
 
+  // Show loading state
+  if (isLoading) {
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-dark-900 via-dark-800 to-dark-900">
+        <div className="text-center">
+          <div className="w-16 h-16 border-4 border-primary-500 border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
+          <p className="text-white/60">Loading Superchat...</p>
+        </div>
+      </div>
+    )
+  }
+
+  // Show chat interface if user is logged in
+  if (user) {
+    return <ChatLayout />
+  }
+
+  // Show welcome page if user is not logged in
   return (
     <div className="min-h-screen">
       {/* Navigation */}
@@ -124,6 +146,11 @@ export default function Home() {
                 <Globe className="w-5 h-5" />
                 <span>Try Web Version</span>
               </button>
+            </div>
+            
+            {/* Login Form */}
+            <div className="mt-16">
+              <LoginForm />
             </div>
           </motion.div>
 
