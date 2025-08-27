@@ -52,19 +52,24 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   useEffect(() => {
     // Check for existing session
     checkAuthStatus()
-  }, [])
+  }, []) // Empty dependency array to run only once
 
   const checkAuthStatus = async () => {
     try {
-      // Check localStorage for saved session
-      const savedUser = localStorage.getItem('superchat_user')
-      if (savedUser) {
-        const userData = JSON.parse(savedUser)
-        setUser(userData)
+      console.log('Checking auth status...')
+      // Check localStorage for saved session (only on client side)
+      if (typeof window !== 'undefined') {
+        const savedUser = localStorage.getItem('superchat_user')
+        console.log('Saved user:', savedUser)
+        if (savedUser) {
+          const userData = JSON.parse(savedUser)
+          setUser(userData)
+        }
       }
     } catch (error) {
       console.error('Auth check failed:', error)
     } finally {
+      console.log('Setting loading to false')
       setIsLoading(false)
     }
   }
@@ -86,7 +91,9 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       }
       
       setUser(mockUser)
-      localStorage.setItem('superchat_user', JSON.stringify(mockUser))
+      if (typeof window !== 'undefined') {
+        localStorage.setItem('superchat_user', JSON.stringify(mockUser))
+      }
     } catch (error) {
       console.error('Login failed:', error)
       throw error
@@ -115,7 +122,9 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         }
         
         setUser(mockUser)
-        localStorage.setItem('superchat_user', JSON.stringify(mockUser))
+        if (typeof window !== 'undefined') {
+          localStorage.setItem('superchat_user', JSON.stringify(mockUser))
+        }
       } else {
         throw new Error('MetaMask not found')
       }
@@ -143,7 +152,9 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       }
       
       setUser(mockUser)
-      localStorage.setItem('superchat_user', JSON.stringify(mockUser))
+      if (typeof window !== 'undefined') {
+        localStorage.setItem('superchat_user', JSON.stringify(mockUser))
+      }
     } catch (error) {
       console.error('Registration failed:', error)
       throw error
@@ -154,7 +165,9 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
   const logout = () => {
     setUser(null)
-    localStorage.removeItem('superchat_user')
+    if (typeof window !== 'undefined') {
+      localStorage.removeItem('superchat_user')
+    }
   }
 
   return (

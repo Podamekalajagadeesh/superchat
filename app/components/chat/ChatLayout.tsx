@@ -10,7 +10,7 @@ import { Menu, X } from 'lucide-react'
 export default function ChatLayout() {
   const { user } = useAuth()
   const [sidebarOpen, setSidebarOpen] = useState(false)
-  const [selectedChat, setSelectedChat] = useState<string | null>(null)
+  const [selectedChat, setSelectedChat] = useState<string | null>('1') // Default to first chat
 
   if (!user) {
     return null

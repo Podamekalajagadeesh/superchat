@@ -81,6 +81,7 @@ export default function Home() {
 
   // Show loading state
   if (isLoading) {
+    console.log('Showing loading state...')
     return (
       <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-dark-900 via-dark-800 to-dark-900">
         <div className="text-center">
@@ -93,10 +94,12 @@ export default function Home() {
 
   // Show chat interface if user is logged in
   if (user) {
+    console.log('User is logged in, showing chat layout')
     return <ChatLayout />
   }
 
   // Show welcome page if user is not logged in
+  console.log('User is not logged in, showing welcome page')
   return (
     <div className="min-h-screen">
       {/* Navigation */}
