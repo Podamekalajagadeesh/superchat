@@ -1,6 +1,7 @@
 'use client'
 
 import { useState, useEffect } from 'react'
+import Link from 'next/link'
 
 export default function Home() {
   const [isLoaded, setIsLoaded] = useState(false)
@@ -111,12 +112,12 @@ export default function Home() {
           </h2>
           
           <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
-            <button className="btn-primary">
+            <Link href="/auth/signup" className="btn-primary">
               Get Started Now
-            </button>
-            <button className="btn-secondary">
-              Learn More
-            </button>
+            </Link>
+            <Link href="/auth/signin" className="btn-secondary">
+              Sign In
+            </Link>
           </div>
         </div>
 
