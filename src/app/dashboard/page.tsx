@@ -4,7 +4,7 @@ import { useAuth } from '@/contexts/AuthContext'
 import { useRouter } from 'next/navigation'
 import { useEffect } from 'react'
 import Link from 'next/link'
-import { LogOut, User, Settings } from 'lucide-react'
+import { LogOut, User, Settings, MessageCircle } from 'lucide-react'
 
 export default function Dashboard() {
   const { user, isLoading, isAuthenticated, logout } = useAuth()
@@ -112,14 +112,17 @@ export default function Dashboard() {
 
         {/* Coming Soon Features */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          <div className="card">
+          <Link href="/chat" className="card hover:bg-white/15 transition-all duration-300">
             <div className="feature-icon mb-4">
               💬
             </div>
             <h3 className="text-xl font-semibold text-white mb-2">Real-time Chat</h3>
             <p className="text-gray-400 mb-4">Start conversations with friends and family instantly.</p>
-            <div className="text-xs text-gray-500">Coming Soon</div>
-          </div>
+            <div className="flex items-center justify-between">
+              <div className="text-xs text-green-400">Live Now</div>
+              <MessageCircle className="w-4 h-4 text-primary-400" />
+            </div>
+          </Link>
 
           <div className="card">
             <div className="feature-icon mb-4">
