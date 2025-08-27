@@ -91,10 +91,10 @@ export default function Sidebar({ selectedChat, onSelectChat, onClose }: Sidebar
           />
           <div className="flex-1">
             <h3 className="font-semibold text-white">{user?.username}</h3>
-            <p className="text-sm text-green-400 flex items-center">
+            <div className="text-sm text-green-400 flex items-center">
               <div className="w-2 h-2 bg-green-400 rounded-full mr-2"></div>
               Online
-            </p>
+            </div>
           </div>
           <button
             onClick={handleLogout}
