@@ -51,16 +51,26 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
   useEffect(() => {
     // Check for existing session
-    checkAuthStatus()
+    const timer = setTimeout(() => {
+      checkAuthStatus()
+    }, 100) // Small delay to ensure client-side execution
+    
+    // Fallback to prevent infinite loading
+    const fallbackTimer = setTimeout(() => {
+      setIsLoading(false)
+    }, 3000)
+    
+    return () => {
+      clearTimeout(timer)
+      clearTimeout(fallbackTimer)
+    }
   }, []) // Empty dependency array to run only once
 
   const checkAuthStatus = async () => {
     try {
-      console.log('Checking auth status...')
       // Check localStorage for saved session (only on client side)
       if (typeof window !== 'undefined') {
         const savedUser = localStorage.getItem('superchat_user')
-        console.log('Saved user:', savedUser)
         if (savedUser) {
           const userData = JSON.parse(savedUser)
           setUser(userData)
@@ -69,7 +79,6 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     } catch (error) {
       console.error('Auth check failed:', error)
     } finally {
-      console.log('Setting loading to false')
       setIsLoading(false)
     }
   }
