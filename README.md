@@ -1,239 +1,270 @@
-# 🚀 Superchat - The Ultimate Chatting App
+# SuperChat - Advanced Authentication System
 
-**Chat. Own. Earn.** - The next generation of messaging with Web3 integration.
+A comprehensive chat application with advanced authentication features including phone OTP, email magic links, wallet authentication, account linking, and device management.
 
-## ✨ **Features Ready to Implement**
+## Features
 
-### 🔐 **Authentication Systems**
-- ✅ **Google OAuth** - Configured and ready
-- ✅ **GitHub OAuth** - Configured and ready  
-- ✅ **Web3Auth** - Wallet-based authentication
-- ✅ **Email Authentication** - Traditional email/password
-- ✅ **WalletConnect** - Web3 wallet integration
+### 🔐 Authentication Methods
+- **Phone Number OTP**: Secure SMS-based authentication
+- **Email Magic Links**: Passwordless email authentication
+- **Wallet Authentication**: Sign-in with Ethereum (SIWE)
+- **Traditional Email/Password**: Standard credential-based auth
+- **Social Login**: Google and GitHub OAuth
 
-### 💬 **Messaging Features**
-- 🔄 **Real-time Messaging** - WebSocket ready
-- 🔄 **File Sharing** - Cloudinary integration ready
-- 🔄 **Voice & Video Calls** - WebRTC ready
-- 🔄 **Group Chats** - Multi-user conversations
-- 🔄 **Message Reactions** - Emoji reactions
-- 🔄 **Read Receipts** - Message status tracking
+### 🔗 Account Linking
+- Link multiple phone numbers to one account
+- Link multiple wallet addresses to one account
+- Link multiple email addresses to one account
+- Unified account management
 
-### ⚡ **Web3 Integration**
-- ✅ **Wallet Connection** - MetaMask, WalletConnect
-- ✅ **Token Rewards** - Earn for participation
-- ✅ **NFT Avatars** - Profile customization
-- ✅ **IPFS Storage** - Decentralized file storage
-- ✅ **Blockchain Features** - Smart contract integration
+### 📱 Device Management
+- Register and manage trusted devices
+- QR code verification for new devices
+- Device fingerprinting and tracking
+- Secure device removal
 
-### 🎨 **UI/UX Features**
-- ✅ **Modern Design** - Glass morphism with dark theme
-- ✅ **Responsive Layout** - Mobile-first approach
-- ✅ **Smooth Animations** - Framer Motion ready
-- ✅ **Loading States** - Professional UX
-- ✅ **Accessibility** - WCAG compliant
+### 🛡️ Security Features
+- JWT-based authentication
+- Secure token management
+- Device verification
+- Account recovery options
 
-## 🛠️ **Tech Stack**
+## Tech Stack
 
-### **Frontend**
-- **Next.js 14** - React framework with App Router
-- **TypeScript** - Type-safe development
-- **Tailwind CSS** - Utility-first styling
-- **Framer Motion** - Smooth animations (ready to add)
+- **Frontend**: Next.js 15, React 18, TypeScript
+- **Backend**: Next.js API Routes
+- **Database**: PostgreSQL with Prisma ORM
+- **Authentication**: NextAuth.js, JWT, SIWE
+- **Styling**: Tailwind CSS
+- **UI Components**: Lucide React Icons
+- **Notifications**: React Hot Toast
 
-### **Authentication**
-- **NextAuth.js** - Multi-provider authentication
-- **Google OAuth** - Social login
-- **GitHub OAuth** - Developer-friendly login
-- **Web3Auth** - Wallet-based auth
-- **JWT** - Secure token management
+## Prerequisites
 
-### **Web3 & Blockchain**
-- **WalletConnect** - Multi-wallet support
-- **Web3Auth** - Social wallet login
-- **Infura** - Ethereum RPC provider
-- **IPFS** - Decentralized storage
-- **Cloudinary** - File upload service
-
-### **Database & Storage**
-- **PostgreSQL** - Primary database (configured)
-- **Cloudinary** - Image and file storage
-- **IPFS** - Decentralized file storage
-
-## 🚀 **Getting Started**
-
-### **Prerequisites**
 - Node.js 18+ 
-- npm or yarn
-- PostgreSQL (for database)
-- Git
+- PostgreSQL database
+- Twilio account (for SMS OTP)
+- SMTP service (for email magic links)
+- MetaMask or similar wallet (for wallet auth)
 
-### **Installation**
+## Environment Variables
+
+Create a `.env.local` file in the root directory:
+
+```env
+# Database
+DATABASE_URL="postgresql://username:password@localhost:5432/superchat"
+
+# NextAuth
+NEXTAUTH_SECRET="your-secret-key"
+NEXTAUTH_URL="http://localhost:3000"
+
+# OAuth Providers
+GOOGLE_CLIENT_ID="your-google-client-id"
+GOOGLE_CLIENT_SECRET="your-google-client-secret"
+GITHUB_CLIENT_ID="your-github-client-id"
+GITHUB_CLIENT_SECRET="your-github-client-secret"
+
+# Twilio (SMS OTP)
+TWILIO_ACCOUNT_SID="your-twilio-account-sid"
+TWILIO_AUTH_TOKEN="your-twilio-auth-token"
+TWILIO_PHONE_NUMBER="your-twilio-phone-number"
+
+# SMTP (Email Magic Links)
+SMTP_HOST="smtp.gmail.com"
+SMTP_PORT="587"
+SMTP_USER="your-email@gmail.com"
+SMTP_PASS="your-app-password"
+```
+
+## Installation
 
 1. **Clone the repository**
-```bash
-git clone <your-repo-url>
-cd superchat
-```
+   ```bash
+   git clone <repository-url>
+   cd superchat
+   ```
 
 2. **Install dependencies**
-```bash
-npm install
-```
+   ```bash
+   npm install
+   ```
 
-3. **Environment Variables**
-The `.env.local` file is already configured with:
-- Google OAuth credentials
-- GitHub OAuth credentials  
-- Web3Auth configuration
-- WalletConnect project ID
-- Email server settings
-- Database connection
-- Cloudinary credentials
-- JWT secrets
+3. **Set up the database**
+   ```bash
+   npx prisma generate
+   npx prisma db push
+   ```
 
-4. **Start the development server**
-```bash
-npm run dev
-```
+4. **Run the development server**
+   ```bash
+   npm run dev
+   ```
 
 5. **Open your browser**
-Visit [http://localhost:3000](http://localhost:3000)
+   Navigate to [http://localhost:3000](http://localhost:3000)
 
-## 📁 **Project Structure**
+## API Endpoints
 
-```
-superchat/
-├── src/
-│   └── app/
-│       ├── globals.css          # Global styles
-│       ├── layout.tsx           # Root layout
-│       └── page.tsx             # Welcome page
-├── .env.local                   # Environment variables
-├── package.json                 # Dependencies
-├── tailwind.config.ts          # Tailwind configuration
-├── tsconfig.json               # TypeScript configuration
-└── README.md                   # This file
-```
+### Authentication
 
-## 🔧 **Environment Variables**
+#### Phone OTP
+- `POST /api/auth/phone/send-otp` - Send OTP to phone number
+- `POST /api/auth/phone/verify-otp` - Verify OTP and authenticate
 
-All environment variables are configured in `.env.local`:
+#### Email Magic Links
+- `POST /api/auth/email/send-magic-link` - Send magic link to email
+- `POST /api/auth/email/verify-magic-link` - Verify magic link
 
-### **Authentication**
-- `NEXTAUTH_SECRET` - NextAuth secret key
-- `GOOGLE_CLIENT_ID` - Google OAuth client ID
-- `GOOGLE_CLIENT_SECRET` - Google OAuth secret
-- `GITHUB_CLIENT_ID` - GitHub OAuth client ID
-- `GITHUB_CLIENT_SECRET` - GitHub OAuth secret
+#### Wallet Authentication
+- `POST /api/auth/wallet/nonce` - Generate nonce for wallet signature
+- `POST /api/auth/wallet/verify` - Verify wallet signature
 
-### **Web3**
-- `NEXT_PUBLIC_WEB3AUTH_CLIENT_ID` - Web3Auth client ID
-- `NEXT_PUBLIC_WALLET_CONNECT_PROJECT_ID` - WalletConnect project ID
-- `NEXT_PUBLIC_INFURA_KEY` - Infura API key
-- `NEXT_PUBLIC_INFURA_URL` - Ethereum RPC URL
+### Account Linking
+- `POST /api/auth/link/phone` - Link phone number to account
+- `POST /api/auth/link/wallet` - Link wallet address to account
 
-### **Storage**
-- `CLOUDINARY_CLOUD_NAME` - Cloudinary cloud name
-- `CLOUDINARY_API_KEY` - Cloudinary API key
-- `CLOUDINARY_API_SECRET` - Cloudinary API secret
+### Device Management
+- `POST /api/auth/device/register` - Register new device
+- `GET /api/auth/device/list` - List user devices
+- `POST /api/auth/device/verify` - Verify device with QR code
+- `POST /api/auth/device/trust` - Trust device after verification
+- `DELETE /api/auth/device/[deviceId]` - Remove device
 
-### **Database**
-- `DATABASE_URL` - PostgreSQL connection string
+## Usage
 
-### **Email**
-- `EMAIL_SERVER_HOST` - SMTP server host
-- `EMAIL_SERVER_PORT` - SMTP server port
-- `EMAIL_SERVER_USER` - Email username
-- `EMAIL_SERVER_PASSWORD` - Email password
+### Phone OTP Authentication
 
-## 🎯 **Next Steps**
+1. Navigate to the sign-in page
+2. Select the "Phone" tab
+3. Enter your phone number
+4. Click "Send OTP"
+5. Enter the 6-digit code received via SMS
+6. Click "Verify OTP"
 
-### **Phase 1: Authentication (Ready to Implement)**
-1. Set up NextAuth.js with Google and GitHub providers
-2. Implement Web3Auth for wallet login
-3. Create user registration and login pages
-4. Add email verification system
+### Email Magic Link Authentication
 
-### **Phase 2: Chat Interface (Ready to Implement)**
-1. Create chat layout with sidebar
-2. Implement real-time messaging with WebSocket
-3. Add message components and styling
-4. Create user profile and settings
+1. Navigate to the sign-in page
+2. Select the "Magic Link" tab
+3. Enter your email address
+4. Click "Send Magic Link"
+5. Check your email and click the link
+6. You'll be automatically signed in
 
-### **Phase 3: Web3 Features (Ready to Implement)**
-1. Integrate wallet connection
-2. Add token reward system
-3. Implement NFT avatar support
-4. Create decentralized storage integration
+### Wallet Authentication
 
-### **Phase 4: Advanced Features (Ready to Implement)**
-1. Voice and video calling
-2. File sharing with IPFS
-3. Group chat management
-4. Message search and filtering
+1. Navigate to the sign-in page
+2. Select the "Wallet" tab
+3. Enter your Ethereum wallet address
+4. Click "Connect Wallet"
+5. Sign the message in MetaMask
+6. You'll be automatically signed in
 
-## 🧪 **Testing**
+### Account Linking
 
-```bash
-# Run development server
-npm run dev
+1. Sign in to your account
+2. Go to Settings > Security
+3. Click "Link" next to the method you want to add
+4. Follow the verification process
+5. Your accounts will be linked
 
-# Build for production
-npm run build
+### Device Management
 
-# Start production server
-npm start
+1. Sign in to your account
+2. Go to Settings > Devices
+3. Click "Register This Device" to add current device
+4. Use QR codes to verify new devices
+5. Manage trusted devices from the list
 
-# Run linting
-npm run lint
-```
+## Development
 
-## 📊 **Performance**
+### Database Schema
 
-- **Lighthouse Score**: 95+ (optimized)
-- **Bundle Size**: Optimized with Next.js
-- **Loading Time**: < 2 seconds
-- **SEO**: Fully optimized with meta tags
+The application uses Prisma with the following main models:
 
-## 🔒 **Security**
+- **User**: Main user account with multiple auth methods
+- **OTPCode**: Phone OTP codes for verification
+- **MagicLink**: Email magic link tokens
+- **Device**: User devices with trust status
+- **Account**: OAuth provider accounts
+- **Session**: User sessions
 
-- **JWT Authentication** - Secure token-based auth
-- **OAuth 2.0** - Industry-standard social login
-- **HTTPS Ready** - Production security
-- **Input Validation** - XSS protection
-- **CORS Configuration** - Cross-origin security
+### Adding New Authentication Methods
 
-## 🌟 **Features Status**
+1. Add the provider to the Prisma schema
+2. Create API routes for the new method
+3. Add UI components for the new method
+4. Update the AuthTabs component
+5. Add account linking support if needed
 
-| Feature | Status | Ready For |
-|---------|--------|-----------|
-| Welcome Page | ✅ Complete | Production |
-| Environment Setup | ✅ Complete | Development |
-| Authentication Config | ✅ Complete | Implementation |
-| Web3 Integration | ✅ Complete | Implementation |
-| Database Setup | ✅ Complete | Implementation |
-| File Upload | ✅ Complete | Implementation |
-| Real-time Chat | 🔄 Next | Implementation |
-| Voice/Video | 🔄 Planned | Future |
-| Mobile App | 🔄 Planned | Future |
+### Customization
 
-## 🤝 **Contributing**
+#### Styling
+- Modify `tailwind.config.ts` for theme customization
+- Update CSS classes in components for styling changes
+- Add new UI components as needed
+
+#### Authentication Flow
+- Modify API routes in `/src/app/api/auth/`
+- Update authentication logic in `/src/lib/auth.ts`
+- Customize UI components in `/src/components/auth/`
+
+## Security Considerations
+
+- All sensitive data is encrypted
+- JWT tokens have appropriate expiration times
+- OTP codes expire after 10 minutes
+- Magic links expire after 15 minutes
+- Device verification uses QR codes with short-lived tokens
+- Rate limiting should be implemented for production
+
+## Production Deployment
+
+1. **Set up production database**
+   - Use a managed PostgreSQL service
+   - Configure connection pooling
+
+2. **Configure environment variables**
+   - Use production OAuth credentials
+   - Set up production Twilio account
+   - Configure production SMTP service
+
+3. **Deploy to your preferred platform**
+   - Vercel (recommended for Next.js)
+   - Netlify
+   - AWS/GCP/Azure
+
+4. **Set up monitoring and logging**
+   - Monitor authentication attempts
+   - Log security events
+   - Set up error tracking
+
+## Contributing
 
 1. Fork the repository
 2. Create a feature branch
 3. Make your changes
-4. Test thoroughly
+4. Add tests if applicable
 5. Submit a pull request
 
-## 📄 **License**
+## License
 
-MIT License - see LICENSE file for details
+This project is licensed under the MIT License.
 
----
+## Support
 
-**Status**: ✅ **Welcome Page Complete**  
-**Environment**: 🚀 **Fully Configured**  
-**Next**: 🔐 **Authentication Implementation**  
+For support and questions:
+- Create an issue in the repository
+- Check the documentation
+- Review the code examples
 
-**Chat. Own. Earn.** ✨
+## Roadmap
+
+- [ ] Multi-factor authentication
+- [ ] Biometric authentication
+- [ ] Advanced device fingerprinting
+- [ ] Account recovery options
+- [ ] Audit logging
+- [ ] Admin dashboard
+- [ ] API rate limiting
+- [ ] Webhook support

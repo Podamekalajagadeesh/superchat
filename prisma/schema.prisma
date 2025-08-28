@@ -44,11 +44,14 @@ model User {
   id            String    @id @default(cuid())
   name          String?
   email         String?   @unique
+  phoneNumber   String?   @unique
   emailVerified DateTime?
+  phoneVerified DateTime?
   image         String?
   username      String?   @unique
   password      String?
   walletAddress String?   @unique
+  walletVerified DateTime?
   googleId      String?   @unique
   githubId      String?   @unique
   isVerified    Boolean   @default(false)
@@ -63,6 +66,9 @@ model User {
   sessions Session[]
   messages Message[]
   chats    ChatParticipant[]
+  devices  Device[]
+  otpCodes OTPCode[]
+  magicLinks MagicLink[]
 }
 
 model VerificationToken {
@@ -71,6 +77,47 @@ model VerificationToken {
   expires    DateTime
 
   @@unique([identifier, token])
+}
+
+model OTPCode {
+  id        String   @id @default(cuid())
+  userId    String?
+  phoneNumber String
+  code      String
+  type      String   // "phone_verification", "phone_login"
+  expiresAt DateTime
+  used      Boolean  @default(false)
+  createdAt DateTime @default(now())
+
+  user User? @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model MagicLink {
+  id        String   @id @default(cuid())
+  userId    String?
+  email     String
+  token     String   @unique
+  expiresAt DateTime
+  used      Boolean  @default(false)
+  createdAt DateTime @default(now())
+
+  user User? @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model Device {
+  id          String   @id @default(cuid())
+  userId      String
+  name        String
+  type        String   // "mobile", "desktop", "tablet", "web"
+  deviceId    String   @unique
+  fingerprint String?
+  ipAddress   String?
+  userAgent   String?
+  isTrusted   Boolean  @default(false)
+  lastUsed    DateTime @default(now())
+  createdAt   DateTime @default(now())
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
 
 model Chat {

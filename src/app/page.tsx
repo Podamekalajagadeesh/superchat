@@ -112,8 +112,8 @@ export default function Home() {
           </h2>
           
           <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
-            <Link href="/auth/signup" className="btn-primary">
-              Get Started Now
+            <Link href="/demo" className="btn-primary">
+              View Demo
             </Link>
             <Link href="/auth/signin" className="btn-secondary">
               Sign In
